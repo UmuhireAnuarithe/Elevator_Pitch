@@ -14,7 +14,7 @@ class User(UserMixin,db.Model):
     pass_secure = db.Column(db.String(255))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-#     reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
+    pitches = db.relationship('Pitch',backref = 'user',lazy="dynamic")
     def __repr__(self):
       return f'User {self.username}'
 
@@ -34,3 +34,44 @@ class User(UserMixin,db.Model):
 
     def verify_password(self,password):
             return check_password_hash(self.pass_secure,password)
+
+
+
+      
+class Category(db.Model):
+    __tablename__ = 'categories'
+
+    id = db.Column(db.Integer,primary_key = True)
+    cat_name = db.Column(db.String(255))
+    pitches = db.relationship('Pitch',backref = 'category',lazy="dynamic")
+
+
+    def __repr__(self):
+        return f'Category {self.name}'
+
+
+    
+class Pitch(db.Model):
+
+    __tablename__ = 'pitches'
+
+    id = db.Column(db.Integer,primary_key = True)
+    pitch_title = db.Column(db.String)
+    Message = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer,db.ForeignKey('categories.id'))
+    
+    def save_review(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_pitch(cls,id):
+        pitch = Pitch.query.filter_by(category_id=id).all()
+        return pitch
+    
+   
+    def __repr__(self):
+        return f'Pitch {self.name}'
+

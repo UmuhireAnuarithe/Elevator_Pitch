@@ -11,7 +11,7 @@
     {% if user.bio %}
       <p> {{user.bio}}</p>
     {%else%}
-      <p> {{user.username| capitalize}} has no bio </p>
+      <p> {{user.username| capitalize}} share your biography </p>
     {% endif %}
   </div>
 
@@ -21,7 +21,7 @@
     {% if user.profile_pic_path %}
     <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
     {%else%}
-    <p>No profile picture</p>
+    <p>Upload profile picture</p>
     {% endif %}
   </div>
   {% if user == current_user %}
