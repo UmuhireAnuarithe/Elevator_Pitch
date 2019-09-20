@@ -3,7 +3,17 @@ from . import main
 # from ..request import get_movies,get_movie,search_movie
 # from .forms import ReviewForm,UpdateProfile
 # from .. import db,photos
-from ..models import ReviewUser
+from ..models import User
 from flask_login import login_required,current_user
 # import markdown2 
-,
+
+
+@main.route('/')
+def index():
+
+    '''
+    View root page function that returns the index page and its data
+    '''
+
+    title = 'Elevator Pitches'
+    return render_template('index.html',title = title)
