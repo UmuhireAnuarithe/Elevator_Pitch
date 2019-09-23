@@ -17,6 +17,8 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pitches = db.relationship('Pitch',backref = 'user',lazy="dynamic")
+    comments = db.relationship("Comment", backref="pitches", lazy = "dynamic")
+
     def __repr__(self):
       return f'User {self.username}'
 
@@ -85,3 +87,28 @@ class Pitch(db.Model):
    
     def __repr__(self):
         return f'Pitch {self.name}'
+
+
+
+class Comment(db.Model):
+    #User comments
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    feedback = db.column(db.String)
+    time_posted = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+    
+    def save_comment(self):
+        '''
+        Function that saves comments
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(self, id):
+        comment = Comments.query.order_by(Comments.time_posted.desc()).filter_by(pitches_id=id).all()
+        return comment
