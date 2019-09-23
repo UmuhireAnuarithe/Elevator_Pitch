@@ -1,26 +1,31 @@
-{% extends 'base.html' %} 
-
+  
+{% extends 'base.html'%}
 {% import 'macros.html' as macro%}
-
-
 {% block content %}
-    <div class=" col-md-10 col-md-offset-1 col-sm-12">
-        <h3 class="text-center">{{category.name|upper}}</h3>
-         <a class="btn btn-primary text-center text-danger " href="/category/new-pitch/{{category.id}}"> Post a Pitch</a>
-         <hr>
-    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
+            
+            <h3 class="text-center">{{category.cat_name|upper}}</h3>
+            <a class="btn btn-primary text-center text-danger" style="float:right;" href="{{url_for('main.new_pitch',id=category.id)}}"> Write a pitch</a>
+            <hr>
 
-    {% if pitches %}
-      <div class="col-sm-12 col-md-8">
-          {{ macro.displayPitches(pitches)}}
-      </div>
-  {%else%}
-        <div class="well">
-          <h4 style="padding:10%; text-align:center; font-size:50px">NO PITCHES IN THIS CATEGORY. </h4>
         </div>
-  {% endif %}
+    </div>
+    <div class="row">
 
-{% end macro %}
+        <h1>Pitches</h1>
+        <hr>
+
+        {% if category %}
+        
+        {% macro displayCategories(categories)%}
+
+        {% else%}
+            <h3 class="text-center">There is no category created yet </h3>
+            <a class="btn btn-primary text-center text-danger" style="float:right;" href="{{url_for('main.new_pitch',id=category.id)}}"> Write a new pitch</a>
+        {% endif %}
+    </div>
 
 </div>
 {% endblock %}

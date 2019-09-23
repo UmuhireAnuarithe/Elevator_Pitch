@@ -19,21 +19,29 @@
 
 
 {% block content %}
-    <h1>Welcome to the impressive elevator pitches website </h1>
+    <h1 style="text-align:center">Welcome to the impressive elevator pitches website </h1>
     <br>
     <div class="container-fluid" style="font-family: 'Russo One', sans-serif;">
       <div class="row"> 
         
-          <div class="container" id="block-text">
+          <!-- <div class="container" id="block-text">
             <br>
             <div class="col-md-5">
               <img src="/static/images/minute.jpg" style= "margin-right: 100%;padding-right: 100%;">
             </div>
             <div class="col-md-1"></div>
+             -->
 
+    <div class="container">
+        <br>
+        <h2 style="font-style: inherit"> <strong>PITCH CATEGORIES</strong></h2>
+        <strong style="font-size: 20px;">{{ macro.displayCategoryList(category) }} </strong>
+        <br>
+        <br>
             <br>
             <div class="col-md-6">
-            <p> In life you only have 60 seconds to impress someone. 1 minute to make or break you. How do we make sure that you use your 1 minute to actually say something meaningful? </p>
+            <p> You can impress someone in one minute to make your carreer or destroy it. How do we make
+             sure that you use your one minute to actually say something meaningful In life sine you only have 60 seconds </p>
             </div>
         </div>
       </div>
@@ -41,13 +49,22 @@
           <hr>
 
           <div class="container">
-            <h3 class="add-category"><a class="btn btn-primary" href="/add/category" style="background-color:#002457; float:right;"><span aria-hidden="true"> ADD CATEGORY </span></a></h3>
+            <h3 class="add-category"><a class="btn btn-success" href="/add/category" style="background-color:black; ">
+            <span aria-hidden="true"> ADD CATEGORY </span></a></h3>
           </div>
-            {{ macro.displayCategoryList(categories) }}
-          
+            
           <!--<footer class="fixed-bottom">
             <img src="/static/images/pitch.png" />
           </footer> -->
       </div>
     </div>
 {% endblock %}
+
+
+
+
+<h1 style="text-align:center">Welcome to the impressive elevator pitches website </h1>
+<div class="col-md-6">
+        <p> You can impress someone in one minute to make your carreer or destroy it. How do we make
+         sure that you use your one minute to actually say something meaningful In life sine you only have 60 seconds </p>
+        </div>

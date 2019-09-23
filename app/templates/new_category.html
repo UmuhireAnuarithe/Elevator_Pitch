@@ -1,13 +1,10 @@
 
+
+
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf%}
 {% import 'macros.html' as macro%}
-<!-- Styles block -->
-{% block styles%}
-    {{ super() }}
-{% endblock %}
 
-<!-- Content block -->
 {% block content %}
     <title> {{ title }} </title>
 
@@ -22,11 +19,5 @@
             </div>
 
         </div>
-        <!-- <div class="row">
-
-                <div class="col-md-2">
-                        {{macro.displayCategories(categories)}}
-                    </div>
-        </div> -->
     </div>
 {% endblock %}
