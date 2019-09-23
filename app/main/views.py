@@ -1,3 +1,5 @@
+
+  
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 # from ..request import get_movies,get_movie,search_movie
@@ -5,8 +7,11 @@ from .forms import UpdateProfile
 from .. import db,photos
 from ..models import User,Category,Pitch
 from flask_login import login_required,current_user
+from .forms import  CategoryForm, PitchForm
 # import markdown2 
 #  ReviewForm,
+# CommentForm,
+
 
 @main.route('/')
 def index():
@@ -16,7 +21,55 @@ def index():
     '''
 
     title = 'Elevator Pitches'
-    return render_template('index.html',title = title)
+    category = Category.get_categories()
+    return render_template('index.html',title = title,categories=category)
+
+
+
+@main.route('/add/category', methods=['GET','POST'])
+@login_required
+def new_category():
+    '''
+    View new group route function that returns a page with a form to create a category
+    '''
+    form = CategoryForm()
+
+    if form.validate_on_submit():
+        name = form.name.data
+        new_category = Category(cat_name=name)
+        new_category.save_category()
+
+        return redirect(url_for('.new_category'))
+
+    all_categories = Category.query.order_by('id').all()
+    title = 'New category'
+    return render_template('new_category.html', category_form = form,title=title, categories = all_categories )
+
+
+
+@main.route('/categories/<int:id>')
+def category(id):
+    category = PitchCategory.query.get(id)
+    if category is None:
+        abort(404)
+
+    pitches=Pitch.get_pitches(id)
+    return render_template('category.html', pitches=pitches, category=category)
+
+# @main.route('/add/category', methods=['GET','POST'])
+# @login_required
+# def new_category():
+#     '''
+#     View new group route function that returns a page with a form to create a category
+#     '''
+#     form = CategoryForm()
+
+#     if form.validate_on_submit():
+#         name = form.name.data
+#         new_category = Category(category_name=name)
+#         new_category.save_category()
+
+#         return redirect(url_for('.new_category'))
 
 
 
@@ -90,3 +143,6 @@ def single_pitch(id):
         abort(404)
     format_pitch = markdown2.markdown(pitch.category_pitch,extras=["code-friendly", "fenced-code-blocks"])
     return render_template('pitch.html',pitch = pitch,format_pitch=format_pitch)
+
+
+

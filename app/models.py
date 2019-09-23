@@ -1,3 +1,5 @@
+
+  
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
@@ -49,6 +51,15 @@ class Category(db.Model):
     def __repr__(self):
         return f'Category {self.name}'
 
+    def save_category(self):
+        db.session.add(self)
+        db.session.commit()
+       
+    @classmethod
+    def get_categories(cls):
+        categories = Category.query.all()
+        return categories
+
 
     
 class Pitch(db.Model):
@@ -74,4 +85,3 @@ class Pitch(db.Model):
    
     def __repr__(self):
         return f'Pitch {self.name}'
-

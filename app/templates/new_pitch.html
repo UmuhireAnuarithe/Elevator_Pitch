@@ -1,11 +1,11 @@
-{% extends 'base.html'%}
+<!-- {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
     <div class="container">
 
         <div class="col-md-8">
 
-            <!-- <img src="{{movie.poster}}" alt="{{movie.title}}" class="img-responsive"> -->
+             <img src="{{movie.poster}}" alt="{{movie.title}}" class="img-responsive">
         </div>
 
         <div class="col-md-4">
@@ -14,5 +14,36 @@
         </div>
 
     </div>
+
+{% endblock %} -->
+
+
+
+
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf%}
+
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/pitches.css')}}">
+{% endblock%}
+
+
+{% extends 'base.html' %} 
+
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block body %}
+
+<div class="container-fluid">
+
+    <div class="container">
+  
+      {{wtf.quick_form(pitch_form)}}
+  
+    </div>
+  </div>
 
 {% endblock %}
