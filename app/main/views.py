@@ -1,99 +1,64 @@
 
-  
-from flask import render_template,request,redirect,url_for,abort
+from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-# from ..request import get_movies,get_movie,search_movie
-from .forms import UpdateProfile
+from .forms import PitchForm,UpdateProfile
+from ..models import User,Pitch,Comment
 from .. import db,photos
-from ..models import User,Category,Pitch
-from flask_login import login_required,current_user
-from .forms import  CategoryForm
-# import markdown2 
-#  ReviewForm,
+import markdown2
+from flask_login import login_required, current_user
+import datetime
 # CommentForm,
 
 
 @main.route('/')
+@login_required
 def index():
-
-    '''
+    """
     View root page function that returns the index page and its data
-    '''
-
+    """
     title = 'Elevator Pitches'
-    category = Category.get_categories()
-    return render_template('index.html',title = title,categories=category)
+    product_pitch = Pitch.query.filter_by(category = 'Product Pitch').all()
+    pickup_lines = Pitch.query.filter_by(category = 'Pickup Lines').all()
+    interview_pitch = Pitch.query.filter_by(category = 'Interview Pitch').all()
+    promotion_pitch = Pitch.query.filter_by(category = 'Promotion Pitch').all()
+
+    return render_template('index.html', title = title,product_pitch = product_pitch, pickup_lines = pickup_lines, interview_pitch = interview_pitch, promotion_pitch = promotion_pitch)
 
 
-@main.route('/add/category', methods=['GET','POST'])
+@main.route('/pitch/new_pitch', methods = ['GET','POST'])
 @login_required
-def new_category():
-    '''
-    View new group route function that returns a page with a form to create a category
-    '''
-    form = CategoryForm()
+def new_pitch():
+    pitch_form = PitchForm()    
 
-    if form.validate_on_submit():
-        cat_name = form.name.data
-        new_category = Category(cat_name=cat_name)
-        new_category.save_category()
+    if pitch_form.validate_on_submit():
+        pitch = Pitch(title = pitch_form.title.data, category = pitch_form.category.data, pitch_content = pitch_form.pitch_content.data, author = pitch_form.author.data)
 
-        return redirect(url_for('.index'))
-
+        db.session.add(pitch)
+        db.session.commit() 
+        
+        return redirect(url_for('main.index'))
     
-    title = 'New category'
-    return render_template('new_category.html', category_form = form,title=title)
+    return render_template('new_pitch.html', pitch_form = pitch_form)   
 
-
-@main.route('/category/<int:id>')
-def category(id):
-    categoryy = Category.query.get(id)
-    pitches = Pitch.query.filter_by(category=categoryy).all()
-
-    
-    return render_template('category.html', pitches=pitches, category=categoryy)
-    
-# adding a new pitch
-
-@main.route('/category/pitches/add/<int:id>', methods=['GET', 'POST'])
+@main.route('/pitch/comments', methods = ['GET', 'POST'])
 @login_required
-def new_pitch(id):
-    '''
-    Function to check Pitches form and fetch data from the fields
-    '''                                             
-    form = PitchForm()
-    category = Category.query.filter_by(id=id).first()
+def comments():    
+    comments_form = CommentsForm() 
+    comments = Comment.query.all()    
 
-    if category is None:
-        abort(404)
+    if comments_form.validate_on_submit():       
 
-    if form.validate_on_submit():
-        content = form.content.data
-        new_pitch= Pitch(content=content,category= category,user=current_user)
-        new_pitch.save_pitch()
-        return redirect(url_for('.category', id=id))
+        # Updated comment instance
+        new_comment = Comment(body = comments_form.body.data)
 
+        # Save review method
+        new_comment.save_comment()
 
-    title = 'New Pitch'
-    return render_template('new_pitch.html', title = title, pitch_form = form, category = category)
+        return redirect(url_for('main.comments'))
+    
+    return render_template('comments.html', comments_form = comments_form, comments = comments)
 
-#viewing a Pitch with its comments
-
-@main.route('/category/pitches/<int:id>', methods=['GET', 'POST'])
-@login_required
-def view_pitch(id):
-    '''
-    Function the returns a single pitch for comment to be added
-    '''
-
-    print(id)
-    pitches = Pitch.query.get(id)
-
-    if pitches is None:
-        abort(404)
-    comment = Comments.get_comments(id)
-    return render_template('pitch.html', pitches=pitches, comment=comment, category_id=id)
-
+  #***************************************************************************#
 
 @main.route('/user/<uname>')
 def profile(uname):

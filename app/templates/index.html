@@ -1,70 +1,83 @@
 
-{% extends 'base.html'%}
-{% import 'macros.html' as macro%}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        {% if title %}
-        <title> {{ title }}</title>
-        {% else %}
-        <title>Elevator Pitches </title>
-        {% endif %}
-    </head>
-    
-{% block styles%}
-    {{ super() }} <!--super() function tells Jinja not to override any code that is defined in the block-->
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-{% endblock %}
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+{% block body %}
+<style>
+  img {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+  
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+@media screen and (max-width: 1024px) { /* Specific to this particular image */
+  img.bg {
+    left: 50%;
+    margin-left: -512px;   /* 50% */
+  }
+}
+</style>
+<img src="https://bit.ly/2tJBM2u" alt="Pitch">
 
+<ul class="nav nav-tabs nav-justified" role="tablist">
+  <li class="nav-item tab">
+    <a class="nav-link" data-toggle="tab" href="#Products" role="tab">Products</a>
+  </li>
+  <li class="nav-item tab">
+    <a class="nav-link" data-toggle="tab" href="#Pickups" role="tab">Pickup Lines</a>
+  </li>
+  <li class="nav-item tab">
+    <a class="nav-link" data-toggle="tab" href="#Interviews" role="tab">Interviews</a>
+  </li>
+  <li class="nav-item tab">
+    <a class="nav-link" data-toggle="tab" href="#Promotions" role="tab">Promotions</a>
+  </li>
+</ul>
 
-{% block content %}
-    <h1 style="text-align:center">Welcome to the impressive elevator pitches website </h1>
-    <br>
-    <div class="container-fluid" style="font-family: 'Russo One', sans-serif;">
-      <div class="row"> 
-        
-          <!-- <div class="container" id="block-text">
-            <br>
-            <div class="col-md-5">
-              <img src="/static/images/minute.jpg" style= "margin-right: 100%;padding-right: 100%;">
-            </div>
-            <div class="col-md-1"></div>
-             -->
+<a href="{{url_for('main.new_pitch')}}" style = "margin-left: 3.25%; color: #4ee630;">
+  <span>New Pitch<span>
+</a>
 
-    <div class="container">
-        <br>
-        <h2 style="font-style: inherit"> <strong>PITCH CATEGORIES</strong></h2>
-        <strong style="font-size: 20px;">{{ macro.displayCategoryList(category) }} </strong>
-        <br>
-        <br>
-            <br>
-            <div class="col-md-6">
-            <p> You can impress someone in one minute to make your carreer or destroy it. How do we make
-             sure that you use your one minute to actually say something meaningful In life sine you only have 60 seconds </p>
-            </div>
-        </div>
-      </div>
-
-          <hr>
-
-          <div class="container">
-            <h3 class="add-category"><a class="btn btn-success" href="/add/category" style="background-color:black; ">
-            <span aria-hidden="true"> ADD CATEGORY </span></a></h3>
-          </div>
-            
-          <!--<footer class="fixed-bottom">
-            <img src="/static/images/pitch.png" />
-          </footer> -->
+<div class="tab-content">
+  <div style="margin-top: 1em;" class="tab-pane" id="Products" role="tabpanel">
+    <div class="container-fluid" style="margin: 0% 2%">
+      <div class="row">
+        {{macro.displayPitchList(product_pitch)}}
       </div>
     </div>
-{% endblock %}
-
-
-
-
-<h1 style="text-align:center">Welcome to the impressive elevator pitches website </h1>
-<div class="col-md-6">
-        <p> You can impress someone in one minute to make your carreer or destroy it. How do we make
-         sure that you use your one minute to actually say something meaningful In life sine you only have 60 seconds </p>
-        </div>
+  </div>
+  <div style="margin-top: 1em;" class="tab-pane" id="Pickups" role="tabpanel">
+    <div class="container-fluid" style="margin: 0% 2%">
+      <div class="row">
+        {{macro.displayPitchList(pickup_lines)}}
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 1em;" class="tab-pane" id="Interviews" role="tabpanel">
+    <div class="container-fluid" style="margin: 0% 2%">
+      <div class="row">
+        {{macro.displayPitchList(interview_pitch)}}
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 1em;" class="tab-pane" id="Promotions" role="tabpanel">
+    <div class="container-fluid" style="margin: 0% 2%">
+      <div class="row">
+        {{macro.displayPitchList(promotion_pitch)}}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock%}
