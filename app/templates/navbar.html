@@ -17,10 +17,11 @@
     </div>
 
     <div class="navbar-collapse collapse">
-        <h1 style="text-align:center;font-family: arizonia">Welcome to impressive elevator pitches  </h1>
+        <h1 style="text-align:center;margin-top:40px;">Welcome to impressive elevator pitches  </h1>
       <ul class="nav navbar-nav navbar-right">
         {% if current_user.is_authenticated %}
         <li style="color:whitesmoke">{{current_user.username}}</li>
+        <li><a style="color: whitesmoke;"href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
         <li><a style="color: whitesmoke;" href="{{url_for('auth.logout')}}">Sign out</a></li>
         {% else %}
         <li><a style="color: whitesmoke;" href="{{url_for('auth.login')}}">Sign in</a></li>
@@ -28,7 +29,7 @@
       </ul>
     </div>
   </div>
-
+<!-- 
 
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav navbar-right">
@@ -37,4 +38,4 @@
       <li><a style="color: whitesmoke;" href="{{url_for('auth.login')}}"></a></li>
     </ul>
   </div>
-</div >
+</div > -->
