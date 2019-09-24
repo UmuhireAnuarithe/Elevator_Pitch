@@ -1,31 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        {% if title %}
-        <title> {{ title }}</title>
-        {% else %}
-        <title>  Elevator Piches  </title>
-        {% endif %}
-    </head>
-    {% extends 'bootstrap/base.html'%}
-    <body>
-       
-        <!-- Navbar block  --> 
-        {% block navbar %}
-        {% include 'navbar.html' %}
-        {% endblock %}
-      
-        <!-- Content block -->
+{%block styles %}
+  <!--Importing the simple mde css and js files  -->
+  {{ simplemde.css}}
+  {{ simplemde.js }}
 
-        <!-- {% block content %} -->
-        {%block styles %}
-        {{super()}}
-        <!--Importing the simple mde css and js files  -->
-        {{ simplemde.css}}
-        {{ simplemde.js }}
-        {% endblock %}
+{% endblock %}
 
-        <!-- {% endblock%} -->
-    </body>
-</html>
+{% extends 'bootstrap/base.html' %}
+
+
+<!-- Navbar block -->
+{% block navbar %}
+
+    {% include 'navbar.html' %}
+    
+{% endblock %}

@@ -1,24 +1,28 @@
-
-{% extends "base.html" %}
-
-{% import 'macros.html' as macro%}
-
+{% import 'bootstrap/wtf.html' as wtf %}
+{% extends 'bootstrap/base.html' %}
+{% include 'navbar.html'%}
 
 {% block content %}
-  <div class=" col-md-10 col-md-offset-1 col-sm-12">
-      <h3 class="text-center">{{category.cat_name|upper}}</h3>
-        <a class="btn btn-primary text-center text-danger " href="/category/pitches/{{pitches.category.id}}"> Write a new Pitch
-        </a>
-        <hr>
-  </div>
-
-    {% if pitches %}
-      <div class="col-sm-12 col-md-8">
-          {{ macro.displayPitches(pitches)}}
-      </div>
-  {%else%}
-        <h3 class="text-center">This category has no pitches </h3>
-        <a class="btn btn-primary text-center text-danger" style="float:right;" href="{{url_for('main.new_pitch',id=category.id)}}"> Write a new pitch</a>
-  {% endif %}
-
+<div class="container">
+	<div class="row">
+		<div class="jumbotron">
+				{{wtf.quick_form(form)}}
+		<ul style="list-style: none;">
+				{% for pitch in pitches %}
+					<div class="list-group">
+						<a href="#">
+							<div class="list-item">
+								<p>{{pitch.id}}</p>
+							</div>
+							<h4>{{ pitch.description }}</h4>
+							<h6> Posted by {{user.username}}.</h6>
+						</a>
+					</div>
+				{% endfor %}
+		</ul>
+		</div>
+	</div>
+</div>
+	
+	
 {% endblock %}

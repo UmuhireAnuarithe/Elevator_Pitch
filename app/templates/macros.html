@@ -1,58 +1,52 @@
-{% macro displayPitchList(pitch_list) %} {% for pitch in pitch_list %}
+{% macro display(category_list) %}
+<div class="row">
+	{% if category_list %}
+		{% for category in category_list %}
+		<div class="col-md-6">
+			<div class="thumbnail text-center">
+			<h5 class="card-header">{{category.title}}</h5>
+			<h5 class="card-header">{{category.category}}</h5>
+			<div class="card-body">
+				<blockquote class="blockquote mb-0">
+					<h2>{{category.description}}</h2>
+					<footer class="blockquote-footer"> Posted by {{category.user.username}}</footer>
+				</blockquote>
+				
+				<a href="{{url_for('main.new_comment',pitch_id = category.id)}}" class="btn btn-info"> Add a comment</a>
+				<a href="{{url_for('main.upvote',pitch_id = category.id)}}" class= "btn btn-primary btn-sm"><i></i>Upvote <span>{{category.upvotes.count()}}</span></a>
+				<a href="{{url_for('main.downvote',pitch_id = category.id)}}" class= "btn btn-danger btn-sm"><i class="far fa-thumbs-up"></i>Downvote <span>{{category.downvotes.count()}}</span></a>
 
-<div class="col-md-3 col-sm-6 col-xs-6" id='pitch'>
-    <div class="card">
-        <div class="card-header" style="color: white;">
-            <b>{{pitch.category}}</b>
-        </div>
-        <div class="pitch-body">
-            <h5 class="pitch-title" style="color: rgba(0, 0, 0, 0.7);">{{pitch.title}}</h5>
-            <p class="pitch-text" style="color: rgb(73, 72, 72);">
-                <i>{{pitch.pitch_content}}</i>
-            </p>
-        </div>
-        <ul class="list">
-            <li class="list-group-item" style="font-size: 14px; color: dodgerblue;">~ {{pitch.author}}
-                <a href="">
-                    <span class="fas fa-thumbs-up"></span>
-                </a>&ensp;
-                <a href="">
-                    <span class="fas fa-thumbs-down"></span>
-                </a>&ensp;
-                <a href="{{url_for('main.comments')}}">
-                    <span class="fas fa-comments"></span>
-                </a>
-            </li>
-            <li class="list-group-item">{{pitch.published_at}}</li>
-            <li class="list-group-item" style="background-color: whitesmoke;">
-                <a href="{{url_for('main.new_pitch')}}" class="new_pitch">
-                    <span id="new_pitch">Click to create a new Pitch
-                        <span>
-                </a>
-            </li>
-        </ul>
-    </div>
+
+			</div>
+		</div>
+
+		</div>
+		{% endfor %}
+	{% else %}
+	{% endif %}
 </div>
+{% endmacro %}
 
-{% endfor %} {% endmacro %} 
 
-{% macro displayCommentsList(comments_list) %} {% for comment in comments_list %}
 
-<div class="container">
+{% macro displayComment(comments) %}
+<ul>
 
-    {{comment.body}}
+			{% if comments %}
+			{% for comment in comments %}
+				<div class="row text-center">
+						<a><p style="color: brown">{{ comment.description }}</p></a>
+						<small> posted by {{comment.user.username}}</small>
+				</div>
+			{% endfor %}
+			{% else %}
 
-</div><br>
+			<h3>This post does  not does not have any comments yet !</h3>
+			{%endif%}
 
-<style>
-    .container {
-        background-color: #0e91a6; 
-        padding: 3.5% 5%; 
-        margin-left: 3%;
-        border-radius: 10px;
-        color: whitesmoke;
-    }
-</style>
+	</ul>
+	
+			
 
-{% endfor %} 
+
 {% endmacro %}

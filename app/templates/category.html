@@ -1,31 +1,51 @@
   
-{% extends 'base.html'%}
-{% import 'macros.html' as macro%}
-{% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
-            
-            <h3 class="text-center">{{category.cat_name|upper}}</h3>
-            <a class="btn btn-primary text-center text-danger" style="float:right;" href="{{url_for('main.new_pitch',id=category.id)}}"> Write a pitch</a>
-            <hr>
-
-        </div>
-    </div>
-    <div class="row">
-
-        <h1>Pitches</h1>
-        <hr>
-
-        {% if category %}
-        
-        {% macro displayCategories(categories)%}
-
-        {% else%}
-            <h3 class="text-center">There is no category created yet </h3>
-            <a class="btn btn-primary text-center text-danger" style="float:right;" href="{{url_for('main.new_pitch',id=category.id)}}"> Write a new pitch</a>
-        {% endif %}
-    </div>
-
-</div>
+{% extends 'bootstrap/base.html' %}
+{% import 'macros.html' as macro %}
+{% block navbar %}
+{% include 'navbar.html'%}
 {% endblock %}
+
+  {% block content %}
+    <div class="container">
+      <h3 style="color: green;text-align: center">Pitch Categories</h3>
+      <br>
+      <ul class="nav nav-pills nav-justified nav-fill" role="tablist">
+        <!-- <div class="cat"> -->
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#product">Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#interview">Interview</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pickupline">Pickupline</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#promotion">Promotion</a>
+        </li>
+      <!-- </div> -->
+      </ul>
+      
+        <div class="col-md-6">
+        <p style="font-size:20px"> You can impress someone in one minute to make your carreer or destroy it. How do we make
+         sure that you use your one minute to actually say something meaningful In life sine you only have 60 seconds </p>
+        </div> 
+
+      <div class="tab-content">
+        <div id="product" class="container tab-pane active"><br>
+          {{ macro.display(productpitch) }}
+          
+        </div>
+        <div id="interview" class="container tab-pane fade"><br>
+          {{ macro.display(interviewpitch) }}
+        </div>
+        <div id="pickupline" class="container tab-pane fade"><br>
+          {{ macro.display(pickuplines)}}
+        </div>
+        <div id="promotion" class="container tab-pane fade"><br>
+          {{ macro.display(promotionpitch) }}
+        </div>
+        
+      </div>
+    </div>
+  {% endblock %}

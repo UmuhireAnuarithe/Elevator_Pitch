@@ -1,83 +1,88 @@
-
 {% extends 'base.html' %}
 {% import 'macros.html' as macro %}
-{% block body %}
+{% block of style %}
 <style>
-  img {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  z-index: -1;
-  
-  /* Set rules to fill background */
-  min-height: 100%;
-  min-width: 1024px;
-	
-  /* Set up proportionate scaling */
-  width: 100%;
-  height: auto;
-	
-  /* Set up positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-@media screen and (max-width: 1024px) { /* Specific to this particular image */
-  img.bg {
-    left: 50%;
-    margin-left: -512px;   /* 50% */
-  }
-}
+    img {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: -1;
+
+        /* Set rules to fill background */
+        min-height: 100%;
+        min-width: 1024px;
+
+        /* Set up proportionate scaling */
+        width: 100%;
+        height: auto;
+
+        /* Set up positioning */
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    @media screen and (max-width: 1024px) {
+
+        /* Specific to this particular image */
+        img.bg {
+            left: 50%;
+            margin-left: -512px;
+            /* 50% */
+        }
+    }
 </style>
+{%end block%}
+{% block of content%}
 <img src="https://bit.ly/2tJBM2u" alt="Pitch">
 
 <ul class="nav nav-tabs nav-justified" role="tablist">
-  <li class="nav-item tab">
-    <a class="nav-link" data-toggle="tab" href="#Products" role="tab">Products</a>
-  </li>
-  <li class="nav-item tab">
-    <a class="nav-link" data-toggle="tab" href="#Pickups" role="tab">Pickup Lines</a>
-  </li>
-  <li class="nav-item tab">
-    <a class="nav-link" data-toggle="tab" href="#Interviews" role="tab">Interviews</a>
-  </li>
-  <li class="nav-item tab">
-    <a class="nav-link" data-toggle="tab" href="#Promotions" role="tab">Promotions</a>
-  </li>
+    <li class="nav-item tab">
+        <a class="nav-link" data-toggle="tab" href="#Products" role="tab">Products</a>
+    </li>
+    <li class="nav-item tab">
+        <a class="nav-link" data-toggle="tab" href="#Pickups" role="tab">Pickup Lines</a>
+    </li>
+    <li class="nav-item tab">
+        <a class="nav-link" data-toggle="tab" href="#Interviews" role="tab">Interviews</a>
+    </li>
+    <li class="nav-item tab">
+        <a class="nav-link" data-toggle="tab" href="#Promotions" role="tab">Promotions</a>
+    </li>
 </ul>
-
-<a href="{{url_for('main.new_pitch')}}" style = "margin-left: 3.25%; color: #4ee630;">
-  <span>New Pitch<span>
+ 
+<a href="{{url_for('main.new_pitch')}}" style="margin-left: 3.25%; color: #4ee630;">
+    <span>New Pitch<span>
 </a>
 
 <div class="tab-content">
-  <div style="margin-top: 1em;" class="tab-pane" id="Products" role="tabpanel">
-    <div class="container-fluid" style="margin: 0% 2%">
-      <div class="row">
-        {{macro.displayPitchList(product_pitch)}}
-      </div>
+    <div style="margin-top: 1em;" class="tab-pane" id="Products" role="tabpanel">
+        <div class="container-fluid" style="margin: 0% 2%">
+            <div class="row">
+                {{macro.displayPitchList(product_pitch)}}
+            </div>
+        </div>
     </div>
-  </div>
-  <div style="margin-top: 1em;" class="tab-pane" id="Pickups" role="tabpanel">
-    <div class="container-fluid" style="margin: 0% 2%">
-      <div class="row">
-        {{macro.displayPitchList(pickup_lines)}}
-      </div>
+    <div style="margin-top: 1em;" class="tab-pane" id="Pickups" role="tabpanel">
+        <div class="container-fluid" style="margin: 0% 2%">
+            <div class="row">
+                {{macro.displayPitchList(pickup_lines)}}
+            </div>
+        </div>
     </div>
-  </div>
-  <div style="margin-top: 1em;" class="tab-pane" id="Interviews" role="tabpanel">
-    <div class="container-fluid" style="margin: 0% 2%">
-      <div class="row">
-        {{macro.displayPitchList(interview_pitch)}}
-      </div>
+    <div style="margin-top: 1em;" class="tab-pane" id="Interviews" role="tabpanel">
+        <div class="container-fluid" style="margin: 0% 2%">
+            <div class="row">
+                {{macro.displayPitchList(interview_pitch)}}
+            </div>
+        </div>
     </div>
-  </div>
-  <div style="margin-top: 1em;" class="tab-pane" id="Promotions" role="tabpanel">
-    <div class="container-fluid" style="margin: 0% 2%">
-      <div class="row">
-        {{macro.displayPitchList(promotion_pitch)}}
-      </div>
+    <div style="margin-top: 1em;" class="tab-pane" id="Promotions" role="tabpanel">
+        <div class="container-fluid" style="margin: 0% 2%">
+            <div class="row">
+                {{macro.displayPitchList(promotion_pitch)}}
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock%}
