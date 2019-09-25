@@ -1,27 +1,34 @@
 ## project name
 Elevator_pitch
- 
- Author: Umuhire Anuarithe <anuarithemuhire@gmail.com> and https://github.com/UmuhireAnuarithe/Elevator_Pitch.git
-Date:  24 september 2019 
 
-## Descrption of the project
-one minute elevator pitch  is project that will contain the  the differences pitch  and the users will be able to views differences types of thepitch  make comments  that will be accouring in my  website it will date  that  different category has published and also it will also has the name you can also sign in and sin up
-of that pitch.
-## installation steps
-$ git clone 
-$ cd blog
-$ source virtual/bin/activate
-Inside the manage.py module change the config_name 
-$ ./start.sh
-## Instrcuction
-On the homepage user will see form that will have option of reseaching the name of the pitch and some description of thepitchand also some there will be a buttom  to cleck for the more detals about the new after clicking there  users will the differences pitch according to the type of pitch .user can be able to views and make some views on theptches.
-## Test Driven Development -TDD
-inter the name of emails and password   submit Read the name of the pitch views the  news  you  can see the 
+## A web application that lets users submit pitches based on different categories
+### september 24 2019
 
-## Technologu Used
 
-Ptyhon3.6 
-HTML
-CSS
-Flask
-Boostrap
+### Author details
+*  Nname : Umuhire Anuarithe
+*  Email :anuarithemuhire@gmail.com
+*  gtihub :https://github.com/UmuhireAnuarithe/Elevator_Pitch.git
+
+## Description
+  This is an application that allows a user to create a pitch depending on a certain category
+  and add pitch content. A user can also be able to comment and vote on another user's pitches.
+
+
+
+## Technical Requirements
+   This can be found in the specs.md file.
+## User Stories
+  * A user can see the pitches posted by other people
+  * A user can eithr downvote or upvote on a pitch as long as they are signed in.
+  * A user can add comment on the different pitches .
+  * A user can view and submit pitches by category.
+
+## Technologies Used
+  * Ptyhon3.6 
+  * HTML5, CSS and Bootstrap
+  * Flask Framework
+  * Postgressql
+  * Heroku
+
+
