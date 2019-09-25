@@ -14,10 +14,6 @@ Elevator_pitch
   This is an application that allows a user to create a pitch depending on a certain category
   and add pitch content. A user can also be able to comment and vote on another user's pitches.
 
-
-
-## Technical Requirements
-   This can be found in the specs.md file.
 ## User Stories
   * A user can see the pitches posted by other people
   * A user can eithr downvote or upvote on a pitch as long as they are signed in.
